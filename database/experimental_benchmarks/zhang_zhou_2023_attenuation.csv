@@ -1,0 +1,2 @@
+dataset_id,source,wavelength_nm,medium,path_length_m,attenuation_per_m,attenuation_db_per_m,measurement_basis,uncertainty,doi,permitted_use,notes
+EXP-001,Zhang_and_Zhou_2023,451,tap_water,10,0.0667,0.289,eye_height_ratio,not_reported,10.3390/s23177649,experimental_benchmark,"Water was exposed to outdoor conditions for several days"
