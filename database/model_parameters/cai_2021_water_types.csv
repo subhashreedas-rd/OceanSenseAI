@@ -1,0 +1,4 @@
+record_id,source,doi,water_type,wavelength_nm,absorption_per_m,scattering_per_m,source_page,source_role,quality_flag,permitted_use,notes
+CAI-2021-01,Cai_et_al_2021,10.3390/app11136051,pure_seawater,not_explicitly_stated,0.0405,0.025,11,secondary_source,internal_conflict,not_for_simulation,"The same paper uses b=0.0025 m^-1 elsewhere; value must be resolved before use"
+CAI-2021-02,Cai_et_al_2021,10.3390/app11136051,ocean_water,not_explicitly_stated,0.114,0.037,11,secondary_source,provisional,comparison_only,"Values are attributed by Cai et al. to their reference 13"
+CAI-2021-03,Cai_et_al_2021,10.3390/app11136051,coastal_water,not_explicitly_stated,0.179,0.219,11,secondary_source,provisional,comparison_only,"Values are attributed by Cai et al. to their reference 13"
