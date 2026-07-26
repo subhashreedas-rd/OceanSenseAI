@@ -1,0 +1,5 @@
+record_id,source,doi,water_type,wavelength_nm,absorption_per_m,scattering_per_m,reported_attenuation_per_m,source_table,source_role,quality_flag,permitted_use,notes
+WANG-2021-01,Wang_et_al_2021,10.3390/electronics10050632,pure_sea,not_reported,0.0405,0.0025,0.043,Table_2,simulation_reference,consistent,simulation,"Typical literature coefficient set; not a direct measurement by the authors"
+WANG-2021-02,Wang_et_al_2021,10.3390/electronics10050632,clear_ocean,not_reported,0.114,0.037,0.151,Table_2,simulation_reference,consistent,simulation,"Typical literature coefficient set; not a direct measurement by the authors"
+WANG-2021-03,Wang_et_al_2021,10.3390/electronics10050632,coastal,not_reported,0.179,0.219,0.398,Table_2,simulation_reference,consistent,simulation,"Typical literature coefficient set; not a direct measurement by the authors"
+WANG-2021-04,Wang_et_al_2021,10.3390/electronics10050632,turbid_harbour,not_reported,0.366,1.824,2.190,Table_2,simulation_reference,consistent,simulation,"Typical literature coefficient set; not a direct measurement by the authors"
