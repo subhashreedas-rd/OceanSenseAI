@@ -31,5 +31,8 @@ jobs:
       - name: Run propagation tests
         run: python -m unittest discover -s tests -v
 
-      - name: Validate parameter tables
+       - name: Validate parameter tables
         run: python src/validate_parameters.py
+
+      - name: Validate spectral absorption dataset
+        run: python src/validate_spectral_data.py      
