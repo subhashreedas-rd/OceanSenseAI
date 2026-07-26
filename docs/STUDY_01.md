@@ -455,17 +455,31 @@ A wavelength-dependent scattering dataset or justified scattering model is there
 | Model scope | Complete |
 | Mathematical formulation | Complete |
 | Verification requirements | Complete |
-| Parameter extraction | In progress |
-| Python implementation | Planned |
-| Results | Planned |
-| Published-data benchmarking | Planned |
+| Experimental attenuation benchmark | Complete |
+| Water-type parameter extraction | Complete |
+| Parameter provenance and consistency checks | Complete |
+| Beer–Lambert implementation | Complete |
+| Automated propagation tests | Complete |
+| Distance-sweep analysis | Complete |
+| Water-type comparison | Complete |
 | Pure-water spectral absorption dataset | Complete |
 | Spectral dataset validation | Complete |
 | Pure-water absorption analysis | Complete |
+| GitHub Actions workflow | Complete |
 | Wavelength-dependent scattering model | Planned |
 | Total spectral attenuation analysis | Planned |
+| Additional published-data benchmarking | Planned |
+
 ---
 
 ## Next Step
 
-Complete the initial optical-property dataset and implement the Beer–Lambert transmittance model in Python.
+Select and document a defensible wavelength-dependent scattering dataset or model for pure water.
+
+The current spectral dataset contains only the absorption coefficient \(a(\lambda)\). Total beam attenuation must not be calculated until the scattering coefficient \(b(\lambda)\) has been independently sourced and validated:
+
+$$
+c(\lambda)=a(\lambda)+b(\lambda)
+$$
+
+After validating \(b(\lambda)\), the next analysis will calculate wavelength-dependent total attenuation, transmittance, and path loss.
