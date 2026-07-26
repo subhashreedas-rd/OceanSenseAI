@@ -2,9 +2,9 @@
 
 *A research project exploring the physics and modelling of underwater optical communication channels.*
 
-OceanSenseAI investigates the physics of light propagation in water and how underwater channel conditions influence optical communication performance.
+OceanSenseAI investigates how light propagates through water and how underwater channel conditions affect optical communication performance.
 
-The project combines optics, numerical modelling, signal processing, and scientific computing to develop reproducible tools for underwater optical communication research. The focus is on physically consistent models, traceable parameter sources, verification against known behaviour, and comparison with published measurements.
+The current work focuses on physics-based channel modelling, traceable parameter selection, model verification, and comparison with published measurements. Later studies will extend the framework to optical sources, receivers, signal processing, and communication-performance analysis.
 
 ---
 
@@ -16,9 +16,13 @@ The project combines optics, numerical modelling, signal processing, and scienti
 
 > How do propagation distance, wavelength, absorption, and scattering influence underwater optical transmission?
 
-The first study develops a baseline propagation model based on the Beer–Lambert attenuation law. It examines how the optical properties of water affect transmission through a homogeneous medium.
+Study 01 develops a baseline direct-path propagation model using the Beer–Lambert attenuation law.
 
-The initial model considers direct-path attenuation. Later work will investigate receiver geometry, multiple scattering, beam divergence, turbulence, and temporal dispersion.
+The current implementation reads a published experimental attenuation benchmark, calculates channel transmittance and path loss, checks limiting cases, and evaluates transmission over propagation distances from 0 to 50 m.
+
+The model currently assumes homogeneous water and does not include receiver geometry, beam divergence, multiple scattering, turbulence, temporal dispersion, or alignment errors.
+
+Detailed assumptions, equations, verification requirements, and limitations are documented in [`docs/STUDY_01.md`](docs/STUDY_01.md).
 
 ---
 
@@ -26,61 +30,100 @@ The initial model considers direct-path attenuation. Later work will investigate
 
 | Task | Status |
 |---|---|
-| Research framework | Complete |
 | Study 01 scope and methodology | Complete |
 | Core literature set selected | Complete |
-| Detailed literature extraction | In progress |
-| Optical-property database structure | Complete |
-| Initial parameter extraction | In progress |
-| Beer–Lambert propagation model | Planned |
-| Model verification | Planned |
-| Transmission analysis and visualisation | Planned |
+| Experimental attenuation benchmark added | Complete |
+| Beer–Lambert propagation model | Complete |
+| Basic verification checks | Complete |
+| Distance-sweep analysis | Complete |
+| Results dataset and transmission figure | Complete |
+| Additional parameter extraction | In progress |
+| Comparison across water conditions | Planned |
+| Published-data benchmarking | Planned |
 
 ---
 
-## Research Roadmap
+## Current Result
 
-OceanSenseAI will progressively investigate:
+Using the published experimental attenuation coefficient of \(0.0667\ \mathrm{m^{-1}}\) at 451 nm, the baseline model predicts that direct-path transmittance decreases from 1 at zero distance to approximately 0.036 at 50 m.
 
-1. Underwater optical propagation
-2. Optical sources and photon statistics
-3. Receiver and detector modelling
-4. Signal and noise analysis
-5. Communication performance
-6. Sensitivity and uncertainty analysis
-7. Benchmarking against published measurements
-8. Photon-level and quantum communication models
+![Direct-path transmittance versus propagation distance](figures/study_01/transmittance_vs_distance.png)
+
+This result represents a single measured water condition and should not be interpreted as a general model for all underwater environments.
+
+---
+
+## Research Direction
+
+Planned development includes:
+
+1. comparison of attenuation across different water conditions;
+2. wavelength-dependent absorption and scattering;
+3. optical source modelling;
+4. receiver and detector modelling;
+5. signal and noise analysis;
+6. bit-error-rate evaluation;
+7. sensitivity and uncertainty analysis;
+8. comparison with additional published measurements.
 
 ---
 
 ## Scientific Approach
 
-The project follows several principles:
-
-- Physics before implementation
-- Traceable parameter sources
-- Verification before interpretation
-- Explicit assumptions and limitations
-- Reproducible computational studies
-- Clear separation between simulation, benchmarking, and experimental validation
+- Use physical reasoning before adding software complexity.
+- Record the origin and permitted use of model parameters.
+- Verify numerical models before interpreting their outputs.
+- State assumptions and limitations explicitly.
+- Keep simulation, published-data benchmarking, and experimental validation distinct.
+- Add new features only when they support a defined research question.
 
 ---
 
-## Planned Repository Structure
+## Repository Structure
 
 ```text
 OceanSenseAI/
-│
-├── README.md
-├── docs/
 ├── database/
+│   └── experimental_benchmarks/
+├── docs/
+├── figures/
+│   └── study_01/
 ├── src/
 ├── studies/
-├── figures/
-└── tests/
+│   └── study_01/
+├── .gitignore
+├── README.md
+└── requirements.txt
 ```
 
-The repository will grow alongside the research. New files and directories will be added only when they support active or completed work.
+---
+
+## Running Study 01
+
+Install the required Python package:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Run the distance-sweep study from the repository root:
+
+```bash
+python -m studies.study_01.run_distance_sweep
+```
+
+The script generates:
+
+```text
+studies/study_01/results/distance_sweep.csv
+figures/study_01/transmittance_vs_distance.png
+```
+
+The core propagation calculation can also be run directly:
+
+```bash
+python src/propagation.py
+```
 
 ---
 
@@ -88,4 +131,4 @@ The repository will grow alongside the research. New files and directories will 
 
 OceanSenseAI is under active development.
 
-The current focus is developing a traceable optical-property database and implementing the first verified baseline model of underwater optical propagation.
+The present implementation is a verified Beer–Lambert baseline evaluated using one published experimental attenuation benchmark. The next step is to introduce additional sourced optical parameters and compare transmission across different underwater conditions.
