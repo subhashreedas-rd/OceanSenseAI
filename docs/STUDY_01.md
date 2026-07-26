@@ -423,6 +423,30 @@ The comparison shows that water condition strongly influences the practical prop
 
 The comparison remains a first-order analysis. It does not account for receiver geometry, scattered-light recovery, turbulence, alignment, or wavelength dependence.
 
+## Wavelength-Dependent Pure-Water Absorption
+
+A wavelength-dependent absorption dataset was added from the experimental measurements of Mason, Cone, and Fry (2016). The dataset contains 131 source-reported values covering wavelengths from 250 to 550 nm.
+
+The measurements were obtained using an integrating-cavity absorption meter designed to measure absorption independently of scattering. The reported absorption coefficient reaches its minimum at 344 nm:
+
+$$
+a(344\ \mathrm{nm}) = 0.000810\ \mathrm{m^{-1}}
+$$
+
+![Pure-water absorption spectrum](../figures/study_01/pure_water_absorption_spectrum.png)
+
+The spectrum shows a decrease in absorption from the ultraviolet region towards 344 nm, followed by increasing absorption at longer wavelengths. The logarithmic vertical scale is used because the measured values span nearly two orders of magnitude.
+
+The shaded region represents the uncertainty reported for each measurement in the source table.
+
+This analysis concerns the absorption coefficient \(a(\lambda)\) only. It does not represent the complete beam attenuation coefficient:
+
+$$
+c(\lambda)=a(\lambda)+b(\lambda)
+$$
+
+A wavelength-dependent scattering dataset or justified scattering model is therefore required before calculating total spectral transmittance.
+
 ## Current Status
 
 | Task | Status |
@@ -435,7 +459,11 @@ The comparison remains a first-order analysis. It does not account for receiver 
 | Python implementation | Planned |
 | Results | Planned |
 | Published-data benchmarking | Planned |
-
+| Pure-water spectral absorption dataset | Complete |
+| Spectral dataset validation | Complete |
+| Pure-water absorption analysis | Complete |
+| Wavelength-dependent scattering model | Planned |
+| Total spectral attenuation analysis | Planned |
 ---
 
 ## Next Step
