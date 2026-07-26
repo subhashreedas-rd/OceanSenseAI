@@ -390,6 +390,39 @@ The results must be interpreted as first-order direct-path predictions.
 
 ---
 
+## Comparison Across Water Types
+
+A second analysis compared direct-path propagation using four literature coefficient sets representing pure sea, clear ocean, coastal water, and turbid harbour water.
+
+For each water type, the beam attenuation coefficient was calculated as:
+
+$$
+c=a+b
+$$
+
+The resulting coefficients were:
+
+| Water type | \(a\) (\(\mathrm{m^{-1}}\)) | \(b\) (\(\mathrm{m^{-1}}\)) | \(c\) (\(\mathrm{m^{-1}}\)) |
+|---|---:|---:|---:|
+| Pure sea | 0.0405 | 0.0025 | 0.043 |
+| Clear ocean | 0.114 | 0.037 | 0.151 |
+| Coastal | 0.179 | 0.219 | 0.398 |
+| Turbid harbour | 0.366 | 1.824 | 2.190 |
+
+These coefficient sets are used as literature-based simulation references rather than as measurements collected within OceanSenseAI.
+
+Under the Beer–Lambert model, path loss increases linearly with both attenuation coefficient and propagation distance:
+
+$$
+\mathrm{Loss}_{dB}=4.343cL
+$$
+
+The comparison shows that water condition strongly influences the practical propagation range. Pure-sea water produces the lowest direct-path loss, while the turbid-harbour coefficient set produces extremely high loss over relatively short distances.
+
+![Direct-path loss across water types](../figures/study_01/water_type_comparison.png)
+
+The comparison remains a first-order analysis. It does not account for receiver geometry, scattered-light recovery, turbulence, alignment, or wavelength dependence.
+
 ## Current Status
 
 | Task | Status |
