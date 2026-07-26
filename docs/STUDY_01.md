@@ -447,6 +447,95 @@ $$
 
 A wavelength-dependent scattering dataset or justified scattering model is therefore required before calculating total spectral transmittance.
 
+## Pure-Water Scattering Model
+
+Wavelength-dependent molecular scattering by pure water will be
+calculated using the physical model presented by Zhang and Hu
+(2009).
+
+The model is based on the Einstein–Smoluchowski description of
+scattering caused by microscopic density fluctuations in a
+particle-free liquid. The volume scattering function at a
+scattering angle of \(90^\circ\) is
+
+$$
+\beta(90,\lambda,T)=
+\frac{\pi^2}{2\lambda^4}
+\left[
+\rho
+\left(
+\frac{\partial n^2}{\partial \rho}
+\right)_T
+\right]^2
+kT\beta_T f(\delta).
+$$
+
+where
+
+- \(\lambda\) is the wavelength in vacuum;
+- \(\rho\) is the density of pure water;
+- \(n\) is the refractive index of pure water;
+- \(k\) is the Boltzmann constant;
+- \(T\) is the absolute temperature;
+- \(\beta_T\) is the isothermal compressibility;
+- \(\delta\) is the molecular depolarization ratio.
+
+The Cabannes factor is
+
+$$
+f(\delta)=\frac{6+6\delta}{6-7\delta}.
+$$
+
+The density derivative of the squared refractive index is
+calculated using the Proutiere–Morel–Hu formulation:
+
+$$
+\rho
+\left(
+\frac{\partial n^2}{\partial \rho}
+\right)_T
+=
+\rho
+\left(
+\frac{\partial n^2}{\partial \rho}
+\right)_P
+=
+(n^2-1)
+\left[
+1+
+\frac{2}{3}(n^2+2)
+\left(
+\frac{n^2-1}{3n}
+\right)^2
+\right].
+$$
+
+Zhang and Hu refer to this formulation as the PMH model.
+
+The depolarization ratio will initially be set to
+
+$$
+\delta=0.039,
+$$
+
+consistent with the later experimental measurements of Zhang
+et al. (2019).
+
+The implementation will retain temperature as an explicit model
+input. Validation will first be performed at \(20^\circ\mathrm{C}\)
+against the measurements reported by Morel. The model will then
+be evaluated at the temperature associated with the selected
+absorption dataset before absorption and scattering are combined.
+
+The Zhang and Hu study presents spectral scattering calculations
+over approximately 350–700 nm. Consequently, the first combined
+absorption-and-scattering analysis will be restricted to the
+overlapping wavelength range of 350–550 nm.
+
+The model calculates molecular scattering by pure, particle-free
+water. It does not include scattering by suspended particles,
+dissolved material, bubbles, biological material, or turbulence.
+
 ## Current Status
 
 | Task | Status |
