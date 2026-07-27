@@ -8,22 +8,22 @@
 
 Before modelling receivers, noise, or bit errors, the optical channel itself must be understood.
 
-This study develops a baseline model relating the optical properties of water to channel transmittance and received optical power.
+This study develops a baseline model relating the optical properties of water to channel transmittance and received direct-path optical power.
 
 ---
 
 ## Model Scope
 
-The first version considers direct-path attenuation through homogeneous water.
+The present model considers direct-path attenuation through homogeneous water.
 
 It includes:
 
 - wavelength-dependent absorption;
-- wavelength-dependent scattering;
+- wavelength-dependent molecular scattering;
 - beam attenuation;
 - propagation distance;
 - channel transmittance;
-- received optical power.
+- received direct-path optical power.
 
 It does not yet include:
 
@@ -52,6 +52,9 @@ The model is therefore a first-order description rather than a complete underwat
 | \(P_t\) | Transmitted optical power | W |
 | \(P_r\) | Received direct-path optical power | W |
 | \(T\) | Channel transmittance | Dimensionless |
+| \(\tau\) | Optical depth | Dimensionless |
+| \(\beta(90,\lambda,T)\) | Volume scattering function at \(90^\circ\) | \(\mathrm{m^{-1}\,sr^{-1}}\) |
+| \(\delta\) | Molecular depolarisation ratio | Dimensionless |
 
 ---
 
@@ -64,7 +67,7 @@ Absorption removes optical energy from the propagating light field.
 The wavelength-dependent absorption coefficient is written as:
 
 $$
-a(\lambda)
+a(\lambda).
 $$
 
 ### Scattering
@@ -76,7 +79,7 @@ A scattered photon is not necessarily destroyed, but it may leave the direct opt
 The wavelength-dependent scattering coefficient is written as:
 
 $$
-b(\lambda)
+b(\lambda).
 $$
 
 ### Beam Attenuation
@@ -84,7 +87,7 @@ $$
 For a homogeneous medium, the beam attenuation coefficient is:
 
 $$
-c(\lambda)=a(\lambda)+b(\lambda)
+c(\lambda)=a(\lambda)+b(\lambda).
 $$
 
 Absorption and scattering describe different physical processes, but both reduce the optical power remaining in the direct beam.
@@ -96,59 +99,59 @@ Absorption and scattering describe different physical processes, but both reduce
 The Beer–Lambert relationship is used as the baseline propagation model:
 
 $$
-P_r(L,\lambda)=P_t(\lambda)e^{-c(\lambda)L}
+P_r(L,\lambda)=P_t(\lambda)e^{-c(\lambda)L}.
 $$
 
 Channel transmittance is defined as:
 
 $$
-T(L,\lambda)=\frac{P_r}{P_t}
+T(L,\lambda)=\frac{P_r}{P_t}.
 $$
 
 Therefore:
 
 $$
-T(L,\lambda)=e^{-c(\lambda)L}
+T(L,\lambda)=e^{-c(\lambda)L}.
 $$
 
 The exponent must be dimensionless:
 
 $$
-[\mathrm{m^{-1}}][\mathrm{m}]=1
+[\mathrm{m^{-1}}][\mathrm{m}]=1.
 $$
 
 ---
 
 ## Derivation
 
-The model assumes that the rate of optical power loss is proportional to the optical power remaining in the beam:
+The model assumes that the rate of optical power loss is proportional to the optical power remaining in the direct beam:
 
 $$
-\frac{dP}{dL}=-cP
+\frac{dP}{dL}=-cP.
 $$
 
 Separating the variables gives:
 
 $$
-\frac{dP}{P}=-c\,dL
+\frac{dP}{P}=-c\,dL.
 $$
 
 For a constant attenuation coefficient:
 
 $$
-\ln\left(\frac{P_r}{P_t}\right)=-cL
+\ln\left(\frac{P_r}{P_t}\right)=-cL.
 $$
 
 Therefore:
 
 $$
-P_r=P_t e^{-cL}
+P_r=P_t e^{-cL},
 $$
 
 and:
 
 $$
-T=e^{-cL}
+T=e^{-cL}.
 $$
 
 This derivation assumes that \(c\) remains constant along the propagation path.
@@ -160,13 +163,13 @@ This derivation assumes that \(c\) remains constant along the propagation path.
 Optical depth is defined as:
 
 $$
-\tau=cL
+\tau=cL.
 $$
 
 The transmittance can therefore be written as:
 
 $$
-T=e^{-\tau}
+T=e^{-\tau}.
 $$
 
 Two channels with the same optical depth have the same Beer–Lambert transmittance, even if their distances and attenuation coefficients are different.
@@ -180,19 +183,19 @@ Two channels with the same optical depth have the same Beer–Lambert transmitta
 When:
 
 $$
-L=\frac{1}{c}
+L=\frac{1}{c},
 $$
 
 the transmittance becomes:
 
 $$
-T=e^{-1}\approx0.368
+T=e^{-1}\approx0.368.
 $$
 
-The attenuation length is:
+The attenuation length is therefore:
 
 $$
-L_e=\frac{1}{c}
+L_e=\frac{1}{c}.
 $$
 
 ### Half-Power Distance
@@ -200,13 +203,13 @@ $$
 For:
 
 $$
-T=0.5
+T=0.5,
 $$
 
 the corresponding distance is:
 
 $$
-L_{1/2}=\frac{\ln 2}{c}
+L_{1/2}=\frac{\ln 2}{c}.
 $$
 
 ---
@@ -218,13 +221,13 @@ Path loss in decibels is:
 $$
 \mathrm{Loss}_{dB}
 =
--10\log_{10}\left(\frac{P_r}{P_t}\right)
+-10\log_{10}\left(\frac{P_r}{P_t}\right).
 $$
 
 Using the Beer–Lambert relationship:
 
 $$
-\mathrm{Loss}_{dB}=4.343cL
+\mathrm{Loss}_{dB}=4.343cL.
 $$
 
 Under this model:
@@ -246,6 +249,7 @@ Under this model:
 | No beam divergence | Geometric spreading is excluded |
 | No receiver geometry | Aperture and field of view are not modelled |
 | Steady channel | Optical properties do not vary with time |
+| Scattering treated as direct-beam loss | Scattered-light recovery is not modelled |
 
 ---
 
@@ -277,7 +281,7 @@ Every parameter used in OceanSenseAI must record:
 - source reference;
 - permitted model use.
 
-Measured, derived, fitted, and reproduced values will be stored separately.
+Measured, derived, fitted, and reproduced values are stored separately.
 
 ---
 
@@ -290,7 +294,7 @@ The Python implementation must satisfy the following checks before its results a
 For \(L=0\):
 
 $$
-T=1
+T=1.
 $$
 
 ### Zero Attenuation
@@ -301,7 +305,7 @@ $$
 T=1
 $$
 
-for every distance.
+for every propagation distance.
 
 ### Positive Attenuation
 
@@ -322,7 +326,7 @@ without becoming negative.
 For non-negative distance and attenuation:
 
 $$
-0<T\leq1
+0<T\leq1.
 $$
 
 ### Equal Optical Depth
@@ -330,13 +334,13 @@ $$
 If:
 
 $$
-c_1L_1=c_2L_2
+c_1L_1=c_2L_2,
 $$
 
 then:
 
 $$
-T_1=T_2
+T_1=T_2.
 $$
 
 ### Cascaded Channel Sections
@@ -346,7 +350,7 @@ For two homogeneous sections:
 $$
 T_{\mathrm{total}}
 =
-e^{-c_1L_1}e^{-c_2L_2}
+e^{-c_1L_1}e^{-c_2L_2},
 $$
 
 which is equivalent to:
@@ -354,21 +358,38 @@ which is equivalent to:
 $$
 T_{\mathrm{total}}
 =
-e^{-(c_1L_1+c_2L_2)}
+e^{-(c_1L_1+c_2L_2)}.
 $$
+
+### Spectral Coefficient Consistency
+
+For every wavelength included in the combined pure-water spectrum:
+
+$$
+c(\lambda)=a(\lambda)+b(\lambda).
+$$
+
+The absorption coefficient must not be relabelled as total attenuation unless an independently sourced or physically justified scattering coefficient has been included.
 
 ---
 
-## Planned Outputs
+## Implemented Outputs
 
-The first implementation will generate:
+The implementation currently generates:
 
 1. transmittance versus propagation distance;
 2. received optical power versus propagation distance;
 3. path loss versus propagation distance;
-4. a transmission map showing the combined effects of distance and attenuation.
+4. direct-path loss comparisons across literature water types;
+5. a wavelength-dependent pure-water absorption spectrum;
+6. a validated pure-water molecular-scattering spectrum;
+7. a comparison between calculated and published volume-scattering values;
+8. a combined absorption, scattering, and total attenuation spectrum;
+9. machine-readable CSV files containing calculated and source-reported values;
+10. automated unit tests and dataset-validation checks;
+11. continuous validation through GitHub Actions.
 
-All parameters used in the analysis must be linked to traceable sources.
+The next planned output is a wavelength–distance transmission map calculated using the combined spectral attenuation coefficient.
 
 ---
 
@@ -382,9 +403,11 @@ It does not track light that is scattered and later enters the receiver. It ther
 - receiver field-of-view effects;
 - multipath propagation;
 - temporal pulse broadening;
-- scattering-angle distributions;
+- scattering-angle-dependent receiver collection;
 - turbulence-induced fading;
-- time-dependent channel behaviour.
+- time-dependent channel behaviour;
+- geometric beam spreading;
+- transmitter–receiver misalignment.
 
 The results must be interpreted as first-order direct-path predictions.
 
@@ -392,12 +415,12 @@ The results must be interpreted as first-order direct-path predictions.
 
 ## Comparison Across Water Types
 
-A second analysis compared direct-path propagation using four literature coefficient sets representing pure sea, clear ocean, coastal water, and turbid harbour water.
+A direct-path propagation analysis was performed using four literature coefficient sets representing pure sea, clear ocean, coastal water, and turbid harbour water.
 
 For each water type, the beam attenuation coefficient was calculated as:
 
 $$
-c=a+b
+c=a+b.
 $$
 
 The resulting coefficients were:
@@ -414,49 +437,58 @@ These coefficient sets are used as literature-based simulation references rather
 Under the Beer–Lambert model, path loss increases linearly with both attenuation coefficient and propagation distance:
 
 $$
-\mathrm{Loss}_{dB}=4.343cL
+\mathrm{Loss}_{dB}=4.343cL.
 $$
 
 The comparison shows that water condition strongly influences the practical propagation range. Pure-sea water produces the lowest direct-path loss, while the turbid-harbour coefficient set produces extremely high loss over relatively short distances.
 
 ![Direct-path loss across water types](../figures/study_01/water_type_comparison.png)
 
-The comparison remains a first-order analysis. It does not account for receiver geometry, scattered-light recovery, turbulence, alignment, or wavelength dependence.
+The comparison remains a first-order analysis. It does not account for receiver geometry, scattered-light recovery, turbulence, alignment, or wavelength dependence within each coefficient set.
+
+---
 
 ## Wavelength-Dependent Pure-Water Absorption
 
-A wavelength-dependent absorption dataset was added from the experimental measurements of Mason, Cone, and Fry (2016). The dataset contains 131 source-reported values covering wavelengths from 250 to 550 nm.
+A wavelength-dependent absorption dataset was added from the experimental measurements of Mason, Cone, and Fry (2016).
 
-The measurements were obtained using an integrating-cavity absorption meter designed to measure absorption independently of scattering. The reported absorption coefficient reaches its minimum at 344 nm:
+The dataset contains 131 source-reported values covering wavelengths from 250 to 550 nm.
+
+The measurements were obtained using an integrating-cavity absorption meter designed to measure absorption independently of scattering.
+
+The reported absorption coefficient reaches its minimum at 344 nm:
 
 $$
-a(344\ \mathrm{nm}) = 0.000810\ \mathrm{m^{-1}}
+a(344\ \mathrm{nm})
+=
+0.000810\ \mathrm{m^{-1}}.
 $$
 
 ![Pure-water absorption spectrum](../figures/study_01/pure_water_absorption_spectrum.png)
 
-The spectrum shows a decrease in absorption from the ultraviolet region towards 344 nm, followed by increasing absorption at longer wavelengths. The logarithmic vertical scale is used because the measured values span nearly two orders of magnitude.
+The spectrum shows a decrease in absorption from the ultraviolet region towards 344 nm, followed by increasing absorption at longer wavelengths.
+
+A logarithmic vertical scale is used because the measured values span nearly two orders of magnitude.
 
 The shaded region represents the uncertainty reported for each measurement in the source table.
 
-This analysis concerns the absorption coefficient \(a(\lambda)\) only. It does not represent the complete beam attenuation coefficient:
+The absorption dataset represents \(a(\lambda)\) only. It does not independently represent the complete beam attenuation coefficient:
 
 $$
-c(\lambda)=a(\lambda)+b(\lambda)
+c(\lambda)=a(\lambda)+b(\lambda).
 $$
 
-A wavelength-dependent scattering dataset or justified scattering model is therefore required before calculating total spectral transmittance.
+A wavelength-dependent scattering model was therefore implemented and validated before total spectral attenuation was calculated.
+
+---
 
 ## Pure-Water Scattering Model
 
-Wavelength-dependent molecular scattering by pure water will be
-calculated using the physical model presented by Zhang and Hu
-(2009).
+Wavelength-dependent molecular scattering by pure water was calculated using the physical model presented by Zhang and Hu (2009).
 
-The model is based on the Einstein–Smoluchowski description of
-scattering caused by microscopic density fluctuations in a
-particle-free liquid. The volume scattering function at a
-scattering angle of \(90^\circ\) is
+The model is based on the Einstein–Smoluchowski description of scattering caused by microscopic density fluctuations in a particle-free liquid.
+
+The volume scattering function at a scattering angle of \(90^\circ\) is:
 
 $$
 \beta(90,\lambda,T)=
@@ -467,10 +499,10 @@ $$
 \frac{\partial n^2}{\partial \rho}
 \right)_T
 \right]^2
-kT\beta_T f(\delta).
+kT\beta_T f(\delta),
 $$
 
-where
+where:
 
 - \(\lambda\) is the wavelength in vacuum;
 - \(\rho\) is the density of pure water;
@@ -478,16 +510,15 @@ where
 - \(k\) is the Boltzmann constant;
 - \(T\) is the absolute temperature;
 - \(\beta_T\) is the isothermal compressibility;
-- \(\delta\) is the molecular depolarization ratio.
+- \(\delta\) is the molecular depolarisation ratio.
 
-The Cabannes factor is
+The Cabannes factor is:
 
 $$
 f(\delta)=\frac{6+6\delta}{6-7\delta}.
 $$
 
-The density derivative of the squared refractive index is
-calculated using the Proutiere–Morel–Hu formulation:
+The density derivative of the squared refractive index was calculated using the Proutiere–Morel–Hu formulation:
 
 $$
 \rho
@@ -512,29 +543,144 @@ $$
 
 Zhang and Hu refer to this formulation as the PMH model.
 
-The depolarization ratio will initially be set to
+The molecular depolarisation ratio was set to:
 
 $$
 \delta=0.039,
 $$
 
-consistent with the later experimental measurements of Zhang
-et al. (2019).
+consistent with the later experimental measurements reported by Zhang et al. (2019).
 
-The implementation will retain temperature as an explicit model
-input. Validation will first be performed at \(20^\circ\mathrm{C}\)
-against the measurements reported by Morel. The model will then
-be evaluated at the temperature associated with the selected
-absorption dataset before absorption and scattering are combined.
+Temperature was retained as an explicit model input.
 
-The Zhang and Hu study presents spectral scattering calculations
-over approximately 350–700 nm. Consequently, the first combined
-absorption-and-scattering analysis will be restricted to the
-overlapping wavelength range of 350–550 nm.
+The implementation also includes:
 
-The model calculates molecular scattering by pure, particle-free
-water. It does not include scattering by suspended particles,
-dissolved material, bubbles, biological material, or turbulence.
+- the refractive index of standard air;
+- the temperature- and wavelength-dependent refractive index of pure water;
+- the isothermal compressibility of pure water;
+- the PMH density derivative;
+- the Cabannes correction;
+- the volume scattering function at \(90^\circ\);
+- the integrated molecular-scattering coefficient.
+
+The total molecular-scattering coefficient was obtained by integrating the angular scattering function over the complete solid angle:
+
+$$
+b(\lambda,T)
+=
+\frac{8\pi}{3}
+\frac{2+\delta}{1+\delta}
+\beta(90,\lambda,T).
+$$
+
+### Scattering-Model Validation
+
+The implementation was validated at \(20^\circ\mathrm{C}\) against five Morel measurements reported by Zhang and Hu at:
+
+- 366 nm;
+- 405 nm;
+- 436 nm;
+- 546 nm;
+- 578 nm.
+
+The maximum absolute relative difference between the calculated and measured volume-scattering values was:
+
+$$
+1.398\%.
+$$
+
+This was below the adopted validation limit of 2%.
+
+![Pure-water molecular-scattering spectrum](../figures/study_01/pure_water_scattering_spectrum.png)
+
+The scattering spectrum was calculated over 350–700 nm.
+
+The combined absorption-and-scattering analysis was restricted to the overlapping wavelength range of 350–550 nm.
+
+The model represents molecular scattering by pure, particle-free water. It does not include scattering by suspended particles, dissolved material, bubbles, biological material, or turbulence.
+
+---
+
+## Combined Pure-Water Attenuation Spectrum
+
+The measured pure-water absorption spectrum was combined with the validated molecular-scattering model to calculate the wavelength-dependent beam attenuation coefficient:
+
+$$
+c(\lambda)=a(\lambda)+b(\lambda),
+$$
+
+where \(a(\lambda)\) is the measured absorption coefficient and \(b(\lambda)\) is the calculated molecular-scattering coefficient.
+
+The analysis was restricted to the overlapping wavelength range of 350–550 nm.
+
+Absorption values were taken directly from the Mason, Cone, and Fry dataset without interpolation.
+
+Molecular scattering was evaluated at the nominal measurement temperature of:
+
+$$
+23^\circ\mathrm{C},
+$$
+
+using a depolarisation ratio of:
+
+$$
+\delta=0.039.
+$$
+
+The calculated total attenuation reached its minimum at 416 nm.
+
+At this wavelength:
+
+$$
+a(416\ \mathrm{nm})
+=
+2.8800\times10^{-3}\ \mathrm{m^{-1}},
+$$
+
+$$
+b(416\ \mathrm{nm})
+=
+4.2551\times10^{-3}\ \mathrm{m^{-1}},
+$$
+
+and therefore:
+
+$$
+c(416\ \mathrm{nm})
+=
+7.1351\times10^{-3}\ \mathrm{m^{-1}}.
+$$
+
+Molecular scattering contributes approximately:
+
+$$
+59.64\%
+$$
+
+of the total beam attenuation at 416 nm.
+
+This result demonstrates that the wavelength of minimum absorption does not necessarily correspond to the wavelength of minimum total beam attenuation.
+
+The absorption coefficient reaches its minimum at 344 nm, but molecular scattering increases strongly towards shorter wavelengths. The balance between decreasing scattering and increasing absorption shifts the calculated minimum total attenuation to 416 nm.
+
+![Pure-water absorption, scattering, and attenuation](../figures/study_01/pure_water_absorption_scattering_attenuation.png)
+
+The combined dataset preserves the uncertainty reported for the absorption measurements.
+
+Uncertainty associated with the molecular-scattering model has not yet been propagated into the total attenuation coefficient.
+
+The calculated attenuation represents direct collimated-beam loss in pure, particle-free water. It does not account for:
+
+- scattered-light collection by the receiver;
+- suspended particles;
+- dissolved material;
+- bubbles;
+- biological material;
+- turbulence;
+- beam divergence;
+- transmitter–receiver alignment losses.
+
+---
 
 ## Current Status
 
@@ -554,21 +700,50 @@ dissolved material, bubbles, biological material, or turbulence.
 | Pure-water spectral absorption dataset | Complete |
 | Spectral dataset validation | Complete |
 | Pure-water absorption analysis | Complete |
+| Wavelength-dependent molecular-scattering model | Complete |
+| Scattering-model validation against Morel measurements | Complete |
+| Molecular-scattering spectrum | Complete |
+| Total pure-water spectral attenuation analysis | Complete |
+| Combined attenuation dataset and figure | Complete |
 | GitHub Actions workflow | Complete |
-| Wavelength-dependent scattering model | Planned |
-| Total spectral attenuation analysis | Planned |
+| Wavelength–distance transmission analysis | Planned |
+| Combined uncertainty propagation | Planned |
 | Additional published-data benchmarking | Planned |
 
 ---
 
 ## Next Step
 
-Select and document a defensible wavelength-dependent scattering dataset or model for pure water.
-
-The current spectral dataset contains only the absorption coefficient \(a(\lambda)\). Total beam attenuation must not be calculated until the scattering coefficient \(b(\lambda)\) has been independently sourced and validated:
+The next analysis will use the combined wavelength-dependent attenuation coefficient:
 
 $$
 c(\lambda)=a(\lambda)+b(\lambda)
 $$
 
-After validating \(b(\lambda)\), the next analysis will calculate wavelength-dependent total attenuation, transmittance, and path loss.
+to calculate direct-path transmittance and path loss as functions of both wavelength and propagation distance:
+
+$$
+T(L,\lambda)=e^{-c(\lambda)L},
+$$
+
+and:
+
+$$
+\mathrm{Loss}_{dB}(L,\lambda)=4.343c(\lambda)L.
+$$
+
+A wavelength–distance transmission map will be generated over the validated 350–550 nm spectral range.
+
+The analysis will also determine:
+
+- the wavelength that provides the highest direct-path transmittance;
+- how the transmission window changes with propagation distance;
+- attenuation length as a function of wavelength;
+- half-power distance as a function of wavelength;
+- direct-path loss across the wavelength–distance domain.
+
+Under the present homogeneous Beer–Lambert model, the wavelength of maximum transmittance is expected to correspond to the wavelength of minimum attenuation. The analysis will verify this computationally and present the result across the complete validated spectral range.
+
+The source-reported absorption uncertainty will be retained.
+
+A separate later analysis will evaluate uncertainty associated with the molecular-scattering model before combined uncertainty bounds are assigned to attenuation, transmittance, and path-loss predictions.
