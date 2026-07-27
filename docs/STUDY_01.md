@@ -682,6 +682,69 @@ The calculated attenuation represents direct collimated-beam loss in pure, parti
 
 ---
 
+## Wavelength–Distance Transmission Analysis
+
+The combined wavelength-dependent attenuation spectrum was used to
+calculate direct-path transmittance and path loss over wavelengths from
+350 to 550 nm and propagation distances from 0 to 200 m.
+
+For each wavelength and distance:
+
+$$
+T(L,\lambda)=e^{-c(\lambda)L},
+$$
+
+and:
+
+$$
+\mathrm{Loss}_{dB}(L,\lambda)
+=
+\frac{10}{\ln 10}c(\lambda)L.
+$$
+
+The minimum attenuation coefficient occurs at 416 nm:
+
+$$
+c(416\ \mathrm{nm})
+=
+7.1351\times10^{-3}\ \mathrm{m^{-1}}.
+$$
+
+Under the present homogeneous Beer–Lambert model, this wavelength
+provides the highest direct-path transmittance at every positive
+propagation distance.
+
+Representative results at 416 nm are:
+
+| Distance | Transmittance | Path loss |
+|---:|---:|---:|
+| 10 m | 0.9311 | 0.310 dB |
+| 50 m | 0.6999 | 1.549 dB |
+| 100 m | 0.4899 | 3.099 dB |
+| 200 m | 0.2400 | 6.197 dB |
+
+![Pure-water wavelength–distance transmission map](../figures/study_01/pure_water_wavelength_distance_transmission_map.png)
+
+The map shows how the direct-path transmission window narrows as
+propagation distance increases. Wavelengths with larger attenuation
+coefficients lose power more rapidly, while the region around 416 nm
+retains the highest transmittance.
+
+The optimum wavelength does not change with distance in this model
+because the attenuation spectrum is assumed to remain constant along
+the propagation path. For every positive distance, maximising
+
+$$
+e^{-c(\lambda)L}
+$$
+
+is equivalent to minimising \(c(\lambda)\).
+
+This conclusion applies only to the present direct-path model. The
+preferred operating wavelength may change when source power, detector
+responsivity, receiver geometry, background light, turbulence,
+alignment, or scattered-light collection are included.
+
 ## Current Status
 
 | Task | Status |
@@ -706,7 +769,7 @@ The calculated attenuation represents direct collimated-beam loss in pure, parti
 | Total pure-water spectral attenuation analysis | Complete |
 | Combined attenuation dataset and figure | Complete |
 | GitHub Actions workflow | Complete |
-| Wavelength–distance transmission analysis | Planned |
+| Wavelength–distance transmission analysis | Complete |
 | Combined uncertainty propagation | Planned |
 | Additional published-data benchmarking | Planned |
 
