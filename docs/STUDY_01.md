@@ -745,6 +745,127 @@ preferred operating wavelength may change when source power, detector
 responsivity, receiver geometry, background light, turbulence,
 alignment, or scattered-light collection are included.
 
+## Combined Uncertainty Analysis
+
+A first-order uncertainty analysis was performed for the combined
+pure-water attenuation and transmission predictions.
+
+The absorption uncertainty was taken directly from the source-reported
+values in the Mason, Cone, and Fry dataset. The molecular-scattering
+coefficient was assigned an initial relative uncertainty of:
+
+$$
+\frac{u_b}{b}=2\%.
+$$
+
+This value is an explicit modelling assumption based on the adopted
+scattering-model validation criterion. It is not a source-reported
+measurement uncertainty.
+
+Assuming that the absorption and scattering uncertainties are
+independent, the combined attenuation uncertainty was calculated as:
+
+$$
+u_c(\lambda)
+=
+\sqrt{
+u_a^2(\lambda)
++
+u_b^2(\lambda)
+}.
+$$
+
+At the nominal minimum-attenuation wavelength of 416 nm:
+
+$$
+c(416\ \mathrm{nm})
+=
+7.1351\times10^{-3}\ \mathrm{m^{-1}},
+$$
+
+and the estimated combined uncertainty is:
+
+$$
+u_c(416\ \mathrm{nm})
+=
+3.1184\times10^{-4}\ \mathrm{m^{-1}}.
+$$
+
+The corresponding relative attenuation uncertainty is approximately:
+
+$$
+4.37\%.
+$$
+
+The attenuation length is:
+
+$$
+L_e
+=
+140.153\pm6.125\ \mathrm{m},
+$$
+
+while the half-power distance is:
+
+$$
+L_{1/2}
+=
+97.146\pm4.246\ \mathrm{m}.
+$$
+
+For direct-path transmittance,
+
+$$
+T(L,\lambda)=e^{-c(\lambda)L},
+$$
+
+the first-order propagated uncertainty was calculated using:
+
+$$
+\frac{\partial T}{\partial c}
+=
+-LT,
+$$
+
+giving:
+
+$$
+u_T(L,\lambda)
+=
+L\,T(L,\lambda)\,u_c(\lambda).
+$$
+
+At 416 nm and a propagation distance of 100 m:
+
+$$
+T
+=
+0.489922\pm0.015278,
+$$
+
+and the direct-path loss is:
+
+$$
+\mathrm{Loss}_{dB}
+=
+3.099\pm0.135\ \mathrm{dB}.
+$$
+
+![Pure-water attenuation uncertainty](../figures/study_01/pure_water_attenuation_uncertainty.png)
+
+![Pure-water transmittance uncertainty at 416 nm](../figures/study_01/pure_water_transmittance_uncertainty_416nm.png)
+
+The uncertainty bounds increase in their practical importance as
+propagation distance increases because small uncertainty in the
+attenuation coefficient is amplified through the exponential
+transmission relationship.
+
+The present analysis must be interpreted as an initial uncertainty
+estimate. The absorption contribution is based on source-reported
+measurement uncertainty, whereas the scattering contribution is based
+on an explicit 2% modelling assumption. These two forms of evidence
+remain identified separately in the generated datasets.
+
 ## Current Status
 
 | Task | Status |
@@ -770,7 +891,7 @@ alignment, or scattered-light collection are included.
 | Combined attenuation dataset and figure | Complete |
 | GitHub Actions workflow | Complete |
 | Wavelength–distance transmission analysis | Complete |
-| Combined uncertainty propagation | Planned |
+| Combined uncertainty propagation | Complete |
 | Additional published-data benchmarking | Planned |
 
 ---
