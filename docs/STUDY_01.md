@@ -898,70 +898,67 @@ remain identified separately in the generated datasets.
 
 ## Next Step
 
-The next stage will evaluate uncertainty in the combined pure-water
-attenuation and transmission predictions.
+The next stage will benchmark the current pure-water optical-property
+model against additional independent published data.
 
-The absorption dataset already provides a source-reported uncertainty:
+The benchmarking process will keep different physical quantities
+separate. Absorption coefficients, scattering coefficients, volume
+scattering functions, and total beam attenuation coefficients will not
+be compared as though they represent the same measurement.
+
+Candidate sources will be assessed according to:
+
+- whether the reported quantity is \(a(\lambda)\), \(b(\lambda)\),
+  \(\beta(\theta,\lambda)\), or \(c(\lambda)\);
+- wavelength range and spectral resolution;
+- water composition and purity;
+- temperature and pressure;
+- measurement method;
+- treatment of scattering;
+- reported uncertainty;
+- availability of numerical source data;
+- suitability for direct comparison with the present model.
+
+For each accepted benchmark, the comparison will report:
 
 $$
-u_a(\lambda).
-$$
-
-The molecular-scattering model also depends on quantities with uncertainty,
-including the depolarisation ratio, refractive index formulation,
-isothermal compressibility, temperature, and published validation accuracy.
-
-For independent absorption and scattering uncertainties, the combined
-attenuation uncertainty will initially be calculated as:
-
-$$
-u_c(\lambda)
+\Delta x(\lambda)
 =
-\sqrt{
-u_a^2(\lambda)
-+
-u_b^2(\lambda)
-},
+x_{\mathrm{model}}(\lambda)
+-
+x_{\mathrm{reference}}(\lambda),
 $$
 
-where \(u_b(\lambda)\) is the estimated uncertainty in the molecular-
-scattering coefficient.
-
-Since direct-path transmittance is
+and the relative difference:
 
 $$
-T(L,\lambda)=e^{-c(\lambda)L},
-$$
-
-its uncertainty will be evaluated through the sensitivity of transmittance
-to attenuation:
-
-$$
-\frac{\partial T}{\partial c}
+\Delta_{\%}(\lambda)
 =
--L e^{-cL}
-=
--LT.
+\frac{
+x_{\mathrm{model}}(\lambda)
+-
+x_{\mathrm{reference}}(\lambda)
+}{
+x_{\mathrm{reference}}(\lambda)
+}
+\times100\%.
 $$
 
-The corresponding first-order propagated uncertainty is:
+Interpolation will be used only in analysis files and only when required
+to place two datasets on a common wavelength grid. Original extracted
+source files will remain unchanged.
 
-$$
-u_T(L,\lambda)
-=
-L\,T(L,\lambda)\,u_c(\lambda).
-$$
+The first priority is an independent pure-water absorption dataset that
+overlaps the present 350–550 nm analysis range. This will test whether
+the location and magnitude of the calculated attenuation minimum depend
+strongly on the selected absorption source.
 
-The analysis will examine how uncertainty changes with wavelength and
-propagation distance and will generate uncertainty bounds for:
+A later benchmark may compare the molecular-scattering model against
+additional measurements or independently reproduced calculations.
+Natural-water datasets will be treated separately because they may
+include contributions from dissolved substances, suspended particles,
+biological material, and salinity.
 
-- total beam attenuation;
-- direct-path transmittance;
-- path loss;
-- attenuation length;
-- half-power distance.
-
-The model inputs and uncertainty assumptions will be documented explicitly.
-Source-reported measurement uncertainty will remain separate from estimated
-model uncertainty so that measured, calculated, and assumed contributions
-are not presented as equivalent evidence.
+The results will be used to identify which conclusions are robust across
+published sources and which depend on the selected dataset or modelling
+assumptions.
