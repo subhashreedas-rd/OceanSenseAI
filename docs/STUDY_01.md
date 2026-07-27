@@ -777,36 +777,70 @@ alignment, or scattered-light collection are included.
 
 ## Next Step
 
-The next analysis will use the combined wavelength-dependent attenuation coefficient:
+The next stage will evaluate uncertainty in the combined pure-water
+attenuation and transmission predictions.
+
+The absorption dataset already provides a source-reported uncertainty:
 
 $$
-c(\lambda)=a(\lambda)+b(\lambda)
+u_a(\lambda).
 $$
 
-to calculate direct-path transmittance and path loss as functions of both wavelength and propagation distance:
+The molecular-scattering model also depends on quantities with uncertainty,
+including the depolarisation ratio, refractive index formulation,
+isothermal compressibility, temperature, and published validation accuracy.
+
+For independent absorption and scattering uncertainties, the combined
+attenuation uncertainty will initially be calculated as:
+
+$$
+u_c(\lambda)
+=
+\sqrt{
+u_a^2(\lambda)
++
+u_b^2(\lambda)
+},
+$$
+
+where \(u_b(\lambda)\) is the estimated uncertainty in the molecular-
+scattering coefficient.
+
+Since direct-path transmittance is
 
 $$
 T(L,\lambda)=e^{-c(\lambda)L},
 $$
 
-and:
+its uncertainty will be evaluated through the sensitivity of transmittance
+to attenuation:
 
 $$
-\mathrm{Loss}_{dB}(L,\lambda)=4.343c(\lambda)L.
+\frac{\partial T}{\partial c}
+=
+-L e^{-cL}
+=
+-LT.
 $$
 
-A wavelength–distance transmission map will be generated over the validated 350–550 nm spectral range.
+The corresponding first-order propagated uncertainty is:
 
-The analysis will also determine:
+$$
+u_T(L,\lambda)
+=
+L\,T(L,\lambda)\,u_c(\lambda).
+$$
 
-- the wavelength that provides the highest direct-path transmittance;
-- how the transmission window changes with propagation distance;
-- attenuation length as a function of wavelength;
-- half-power distance as a function of wavelength;
-- direct-path loss across the wavelength–distance domain.
+The analysis will examine how uncertainty changes with wavelength and
+propagation distance and will generate uncertainty bounds for:
 
-Under the present homogeneous Beer–Lambert model, the wavelength of maximum transmittance is expected to correspond to the wavelength of minimum attenuation. The analysis will verify this computationally and present the result across the complete validated spectral range.
+- total beam attenuation;
+- direct-path transmittance;
+- path loss;
+- attenuation length;
+- half-power distance.
 
-The source-reported absorption uncertainty will be retained.
-
-A separate later analysis will evaluate uncertainty associated with the molecular-scattering model before combined uncertainty bounds are assigned to attenuation, transmittance, and path-loss predictions.
+The model inputs and uncertainty assumptions will be documented explicitly.
+Source-reported measurement uncertainty will remain separate from estimated
+model uncertainty so that measured, calculated, and assumed contributions
+are not presented as equivalent evidence.
