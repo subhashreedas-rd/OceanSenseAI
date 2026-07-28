@@ -29,3 +29,6 @@ jobs:
 
       - name: Validate spectral absorption dataset
         run: python src/validate_spectral_data.py
+
+      - name: Validate independent absorption benchmark
+        run: python src/validate_benchmark_data.py
