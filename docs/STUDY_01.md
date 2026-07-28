@@ -389,7 +389,7 @@ The implementation currently generates:
 10. automated unit tests and dataset-validation checks;
 11. continuous validation through GitHub Actions.
 
-The next planned output is a wavelength–distance transmission map calculated using the combined spectral attenuation coefficient.
+The implementation also includes a wavelength–distance transmission map, first-order uncertainty propagation, and an independent 2025 single-wavelength attenuation benchmark.
 
 ---
 
@@ -866,6 +866,73 @@ measurement uncertainty, whereas the scattering contribution is based
 on an explicit 2% modelling assumption. These two forms of evidence
 remain identified separately in the generated datasets.
 
+## 2025 Ultrapure-Water Attenuation Benchmark
+
+The calculated pure-water attenuation coefficient was compared with an
+independent measurement reported by Cai et al. (2025).
+
+The study used an ACS dual-channel spectrophotometer to measure absorption
+and total attenuation over 400–750 nm. For ultrapure water at 532 nm, the
+reported total beam attenuation coefficient was:
+
+$$
+c_{\mathrm{measured}}(532\ \mathrm{nm})
+=
+0.04502\ \mathrm{m^{-1}}.
+$$
+
+The corresponding OceanSenseAI calculation used the source-reported
+absorption coefficient:
+
+$$
+a(532\ \mathrm{nm})
+=
+0.04330\ \mathrm{m^{-1}},
+$$
+
+together with the calculated pure-water molecular-scattering coefficient.
+The resulting total attenuation was approximately:
+
+$$
+c_{\mathrm{model}}(532\ \mathrm{nm})
+=
+0.04481\ \mathrm{m^{-1}}.
+$$
+
+The signed relative difference was:
+
+$$
+\frac{
+c_{\mathrm{model}}-c_{\mathrm{measured}}
+}{
+c_{\mathrm{measured}}
+}
+\times100\%
+=
+-0.469\%.
+$$
+
+The absolute relative difference was therefore:
+
+$$
+0.469\%.
+$$
+
+![Cai et al. 2025 ultrapure-water attenuation benchmark](../figures/study_01/cai_2025_ultrapure_water_532nm_benchmark.png)
+
+The comparison shows close agreement between the calculated attenuation
+coefficient and the published ACS measurement at 532 nm.
+
+This result must be interpreted as a single-wavelength benchmark rather
+than a complete spectral validation. The publication does not report an
+uncertainty for the stated 532 nm value, and the experimental conditions
+are not identical to those associated with the absorption and scattering
+inputs used by OceanSenseAI.
+
+The benchmark therefore provides an independent modern point check of the
+total attenuation calculation but does not replace full-spectrum
+comparison against an independent absorption dataset.
+
 ## Current Status
 
 | Task | Status |
@@ -892,26 +959,27 @@ remain identified separately in the generated datasets.
 | GitHub Actions workflow | Complete |
 | Wavelength–distance transmission analysis | Complete |
 | Combined uncertainty propagation | Complete |
-| Additional published-data benchmarking | Planned |
+| 2025 ultrapure-water attenuation benchmark | Complete |
+| Additional published-data benchmarking | In progress |
 
 ---
 
 ## Next Step
 
 The next stage will benchmark the current pure-water optical-property
-model against additional independent published data.
+model against an additional independent pure-water absorption dataset.
 
 The benchmarking process will keep different physical quantities
 separate. Absorption coefficients, scattering coefficients, volume
 scattering functions, and total beam attenuation coefficients will not
 be compared as though they represent the same measurement.
 
-Candidate sources will be assessed according to:
+Candidate datasets will be assessed according to:
 
 - whether the reported quantity is \(a(\lambda)\), \(b(\lambda)\),
   \(\beta(\theta,\lambda)\), or \(c(\lambda)\);
 - wavelength range and spectral resolution;
-- water composition and purity;
+- water composition and sample purity;
 - temperature and pressure;
 - measurement method;
 - treatment of scattering;
@@ -919,7 +987,7 @@ Candidate sources will be assessed according to:
 - availability of numerical source data;
 - suitability for direct comparison with the present model.
 
-For each accepted benchmark, the comparison will report:
+For each accepted benchmark, the difference will be calculated as:
 
 $$
 \Delta x(\lambda)
@@ -929,7 +997,7 @@ x_{\mathrm{model}}(\lambda)
 x_{\mathrm{reference}}(\lambda),
 $$
 
-and the relative difference:
+and the relative difference will be calculated as:
 
 $$
 \Delta_{\%}(\lambda)
@@ -944,21 +1012,45 @@ x_{\mathrm{reference}}(\lambda)
 \times100\%.
 $$
 
-Interpolation will be used only in analysis files and only when required
-to place two datasets on a common wavelength grid. Original extracted
-source files will remain unchanged.
+Where uncertainty is available for both datasets, the analysis will also
+examine whether the reported uncertainty ranges overlap.
 
-The first priority is an independent pure-water absorption dataset that
-overlaps the present 350–550 nm analysis range. This will test whether
-the location and magnitude of the calculated attenuation minimum depend
-strongly on the selected absorption source.
+Interpolation will be used only within analysis scripts and only when
+required to place two datasets on a common wavelength grid. Original
+source-reported datasets will remain unchanged.
 
-A later benchmark may compare the molecular-scattering model against
-additional measurements or independently reproduced calculations.
-Natural-water datasets will be treated separately because they may
+The first priority is a full-spectrum pure-water absorption benchmark
+that overlaps the present 350–550 nm analysis range. This comparison
+will determine how strongly the calculated attenuation spectrum depends
+on the selected absorption dataset.
+
+The benchmark will examine:
+
+- differences between the absorption spectra;
+- differences in the reported wavelength of minimum absorption;
+- changes in total attenuation after molecular scattering is added;
+- changes in the wavelength of minimum total attenuation;
+- changes in attenuation length and half-power distance;
+- differences in predicted direct-path transmittance;
+- the influence of measurement temperature and experimental method.
+
+The Sogandares and Fry dataset is suitable for this comparison because
+it reports pure-water absorption measurements from approximately
+340 to 640 nm with source-reported uncertainties. It will be used
+strictly as an absorption benchmark and will not be treated as a
+measurement of scattering or total beam attenuation.
+
+The Cai et al. benchmark and the full-spectrum absorption benchmark
+serve different purposes. The Cai et al. measurement provides a recent
+single-wavelength check of total attenuation at 532 nm, whereas the
+full-spectrum comparison evaluates how the predicted transmission
+window depends on the selected absorption dataset.
+
+Natural-water measurements will be treated separately because they may
 include contributions from dissolved substances, suspended particles,
-biological material, and salinity.
+biological material, salinity, bubbles, and other environmental
+components.
 
-The results will be used to identify which conclusions are robust across
-published sources and which depend on the selected dataset or modelling
-assumptions.
+The benchmarking results will identify which conclusions are consistent
+across published sources and which depend on the selected dataset,
+measurement method, or modelling assumptions.
