@@ -933,6 +933,155 @@ The benchmark therefore provides an independent modern point check of the
 total attenuation calculation but does not replace full-spectrum
 comparison against an independent absorption dataset.
 
+## Independent Pure-Water Absorption Dataset Benchmark
+
+The sensitivity of the calculated pure-water attenuation spectrum to the
+selected absorption dataset was assessed using measurements reported by
+Sogandares and Fry (1997).
+
+Their dataset contains pure-water absorption measurements from 340 to
+640 nm at 10 nm intervals. The measurements were obtained at
+\(25^\circ\mathrm{C}\) using photothermal deflection spectroscopy, a
+method designed to measure absorption without requiring a scattering
+correction.
+
+The Sogandares and Fry absorption spectrum was compared with the
+Mason, Cone, and Fry dataset already used in OceanSenseAI. The
+comparison was restricted to the 21 exact common wavelengths from
+350 to 550 nm at 10 nm intervals.
+
+No interpolation was applied. The original source datasets remained
+unchanged.
+
+The two studies were performed at different temperatures and used
+different measurement methods:
+
+| Dataset | Temperature | Measurement method |
+|---|---:|---|
+| Mason, Cone, and Fry (2016) | \(23\pm0.5^\circ\mathrm{C}\) | Integrating-cavity absorption measurement |
+| Sogandares and Fry (1997) | \(25^\circ\mathrm{C}\) | Photothermal deflection spectroscopy |
+
+The source-reported absorption spectra are compared below.
+
+![Independent pure-water absorption dataset benchmark](../figures/study_01/pure_water_absorption_dataset_benchmark.png)
+
+On the common 10 nm wavelength grid, the minimum absorption values were:
+
+| Dataset | Minimum wavelength | Absorption coefficient |
+|---|---:|---:|
+| Mason, Cone, and Fry (2016) | 350 nm | \(0.000890\ \mathrm{m^{-1}}\) |
+| Sogandares and Fry (1997) | 420 nm | \(0.006200\ \mathrm{m^{-1}}\) |
+
+The minimum reported for the Mason dataset over its complete original
+wavelength grid remains at 344 nm. The 350 nm value reported here is only
+the minimum on the restricted common 10 nm comparison grid.
+
+For each common wavelength, the absorption difference was calculated as:
+
+$$
+\Delta a(\lambda)
+=
+a_{\mathrm{Sogandares}}(\lambda)
+-
+a_{\mathrm{Mason}}(\lambda),
+$$
+
+and the relative difference was calculated with the Mason value as the
+reference:
+
+$$
+\Delta_{\%}(\lambda)
+=
+\frac{
+a_{\mathrm{Sogandares}}(\lambda)
+-
+a_{\mathrm{Mason}}(\lambda)
+}{
+a_{\mathrm{Mason}}(\lambda)
+}
+\times100\%.
+$$
+
+Across the 21 common wavelengths, the mean absolute relative absorption
+difference was:
+
+$$
+299.61\%,
+$$
+
+while the median absolute relative difference was:
+
+$$
+29.95\%.
+$$
+
+The mean is substantially larger than the median because the datasets
+differ strongly at the shorter wavelengths, where the Mason absorption
+coefficients are particularly small. Relative differences therefore
+become very large even when the absolute differences remain moderate.
+
+The uncertainty reported by both sources was combined as:
+
+$$
+u_{\Delta a}(\lambda)
+=
+\sqrt{
+u_{\mathrm{Mason}}^2(\lambda)
++
+u_{\mathrm{Sogandares}}^2(\lambda)
+}.
+$$
+
+Only 4 of the 21 common wavelengths differed by no more than two combined
+source uncertainties. The disagreement between the datasets therefore
+cannot generally be explained by their reported uncertainty intervals
+alone.
+
+To evaluate the effect on total beam attenuation, the molecular-scattering
+model was added separately to each absorption dataset at its corresponding
+measurement temperature:
+
+$$
+c(\lambda,T)
+=
+a(\lambda)
++
+b(\lambda,T).
+$$
+
+The resulting attenuation spectra are shown below.
+
+![Sensitivity of total attenuation to absorption dataset](../figures/study_01/pure_water_attenuation_dataset_sensitivity.png)
+
+On the common 10 nm grid, the calculated total-attenuation minima were:
+
+| Absorption source | Scattering-model temperature | Minimum wavelength | Minimum attenuation |
+|---|---:|---:|---:|
+| Mason, Cone, and Fry (2016) | \(23^\circ\mathrm{C}\) | 410 nm | \(0.007188\ \mathrm{m^{-1}}\) |
+| Sogandares and Fry (1997) | \(25^\circ\mathrm{C}\) | 430 nm | \(0.010095\ \mathrm{m^{-1}}\) |
+
+The Mason-based minimum differs slightly from the previously reported
+416 nm result because this comparison uses only the common 10 nm
+wavelength grid. The earlier 416 nm result was obtained using the full
+2 nm Mason dataset.
+
+The benchmark shows that the predicted wavelength and magnitude of
+minimum total attenuation depend materially on the selected absorption
+dataset. The preferred wavelength shifts from 410 nm to 430 nm on the
+common grid, while the minimum attenuation coefficient also increases.
+
+This result does not establish that one dataset is universally correct
+and the other is incorrect. The measurements differ in sample
+preparation, experimental method, temperature, spectral resolution, and
+possible contamination sensitivity.
+
+The result instead demonstrates that absorption-dataset selection is an
+important source of model uncertainty. Conclusions about optimum
+wavelength and achievable propagation distance should therefore not be
+based on a single absorption dataset without sensitivity analysis.
+
+---
+
 ## Current Status
 
 | Task | Status |
@@ -960,97 +1109,118 @@ comparison against an independent absorption dataset.
 | Wavelength–distance transmission analysis | Complete |
 | Combined uncertainty propagation | Complete |
 | 2025 ultrapure-water attenuation benchmark | Complete |
-| Additional published-data benchmarking | In progress |
+| Independent pure-water absorption dataset benchmark | Complete |
+| Absorption-dataset sensitivity analysis | Complete |
+| Study 01 baseline channel characterisation | Complete |
 
 ---
 
-## Next Step
+## Next Step — Study 02: Receiver, Noise, and Link Budget
 
-The next stage will benchmark the current pure-water optical-property
-model against an additional independent pure-water absorption dataset.
+Study 01 established and validated the baseline direct-path optical
+channel model. It examined absorption, molecular scattering, total beam
+attenuation, wavelength dependence, propagation distance, uncertainty,
+and sensitivity to the selected absorption dataset.
 
-The benchmarking process will keep different physical quantities
-separate. Absorption coefficients, scattering coefficients, volume
-scattering functions, and total beam attenuation coefficients will not
-be compared as though they represent the same measurement.
+The next stage will connect the optical channel model to a basic receiver
+and electrical signal model.
 
-Candidate datasets will be assessed according to:
-
-- whether the reported quantity is \(a(\lambda)\), \(b(\lambda)\),
-  \(\beta(\theta,\lambda)\), or \(c(\lambda)\);
-- wavelength range and spectral resolution;
-- water composition and sample purity;
-- temperature and pressure;
-- measurement method;
-- treatment of scattering;
-- reported uncertainty;
-- availability of numerical source data;
-- suitability for direct comparison with the present model.
-
-For each accepted benchmark, the difference will be calculated as:
+The received optical power will first be written as:
 
 $$
-\Delta x(\lambda)
+P_r(L,\lambda)
 =
-x_{\mathrm{model}}(\lambda)
--
-x_{\mathrm{reference}}(\lambda),
+P_t(\lambda)
+G_{\mathrm{sys}}(L,\lambda)
+e^{-c(\lambda)L},
 $$
 
-and the relative difference will be calculated as:
+where \(G_{\mathrm{sys}}\) will represent the geometric and receiver
+factors that were excluded from Study 01.
+
+Study 02 will introduce:
+
+- transmitted optical power;
+- beam divergence;
+- receiver aperture;
+- transmitter–receiver separation;
+- geometric collection efficiency;
+- detector responsivity;
+- received photocurrent;
+- background optical power;
+- shot noise;
+- thermal noise;
+- electrical bandwidth;
+- signal-to-noise ratio;
+- a reproducible optical link-budget calculation.
+
+The photodetector output current will be modelled initially as:
 
 $$
-\Delta_{\%}(\lambda)
+I_s
+=
+R(\lambda)P_r,
+$$
+
+where \(R(\lambda)\) is the detector responsivity.
+
+The corresponding electrical signal power will depend on the selected
+receiver model and load resistance. Noise contributions will be kept
+separate so that their physical origins remain traceable.
+
+The initial shot-noise variance will be represented as:
+
+$$
+\sigma_{\mathrm{shot}}^2
+=
+2q
+\left(
+I_s+I_{\mathrm{background}}+I_{\mathrm{dark}}
+\right)
+B,
+$$
+
+where:
+
+- \(q\) is the elementary charge;
+- \(I_s\) is the signal photocurrent;
+- \(I_{\mathrm{background}}\) is the background-light photocurrent;
+- \(I_{\mathrm{dark}}\) is the detector dark current;
+- \(B\) is the electrical bandwidth.
+
+A basic thermal-noise model will then be added using explicitly recorded
+receiver parameters and assumptions.
+
+The resulting signal-to-noise ratio will be calculated as:
+
+$$
+\mathrm{SNR}
 =
 \frac{
-x_{\mathrm{model}}(\lambda)
--
-x_{\mathrm{reference}}(\lambda)
+I_s^2
 }{
-x_{\mathrm{reference}}(\lambda)
-}
-\times100\%.
+\sigma_{\mathrm{shot}}^2
++
+\sigma_{\mathrm{thermal}}^2
+}.
 $$
 
-Where uncertainty is available for both datasets, the analysis will also
-examine whether the reported uncertainty ranges overlap.
+The first Study 02 implementation will use a simple monochromatic
+line-of-sight receiver model. More complex effects such as turbulence,
+multiple scattering, pointing errors, detector saturation, and
+time-varying channel behaviour will remain outside the initial scope.
 
-Interpolation will be used only within analysis scripts and only when
-required to place two datasets on a common wavelength grid. Original
-source-reported datasets will remain unchanged.
+After the receiver and noise model has been verified, the project will
+begin basic signal processing using:
 
-The first priority is a full-spectrum pure-water absorption benchmark
-that overlaps the present 350–550 nm analysis range. This comparison
-will determine how strongly the calculated attenuation spectrum depends
-on the selected absorption dataset.
+- generated binary data;
+- on–off keying;
+- noisy received waveforms;
+- threshold detection;
+- recovered bit sequences;
+- bit-error-rate calculation;
+- basic filtering and detector comparison.
 
-The benchmark will examine:
-
-- differences between the absorption spectra;
-- differences in the reported wavelength of minimum absorption;
-- changes in total attenuation after molecular scattering is added;
-- changes in the wavelength of minimum total attenuation;
-- changes in attenuation length and half-power distance;
-- differences in predicted direct-path transmittance;
-- the influence of measurement temperature and experimental method.
-
-The Sogandares and Fry dataset is suitable for this comparison because
-it reports pure-water absorption measurements from approximately
-340 to 640 nm with source-reported uncertainties. It will be used
-strictly as an absorption benchmark and will not be treated as a
-measurement of scattering or total beam attenuation.
-
-The Cai et al. benchmark and the full-spectrum absorption benchmark
-serve different purposes. The Cai et al. measurement provides a recent
-single-wavelength check of total attenuation at 532 nm, whereas the
-full-spectrum comparison evaluates how the predicted transmission
-window depends on the selected absorption dataset.
-
-Natural-water measurements will be treated separately because they may
-include contributions from dissolved substances, suspended particles,
-biological material, salinity, bubbles, and other environmental
-components.
-
-The benchmarking results will identify which conclusions are consistent
-across published sources and which depend on the selected dataset,
-measurement method, or modelling assumptions.
+This sequence ensures that signal-processing results are based on a
+physically traceable optical channel, receiver, and noise model rather
+than on arbitrary simulated noise.
