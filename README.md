@@ -2,54 +2,166 @@
 
 [![Tests](https://github.com/subhashreedas-rd/OceanSenseAI/actions/workflows/tests.yml/badge.svg)](https://github.com/subhashreedas-rd/OceanSenseAI/actions/workflows/tests.yml)
 
-A physics-based modelling and signal-processing project for underwater
-optical communication.
+**OceanSenseAI investigates how physical processes within underwater optical channels ultimately influence received signals and communication performance.**
 
-OceanSenseAI connects published optical-property data to a traceable
-simulation chain covering:
+## Why This Project?
 
-- underwater optical attenuation;
-- wavelength-dependent absorption and molecular scattering;
-- received optical power;
-- photodetector current;
-- shot and thermal noise;
-- on–off keying;
-- waveform sampling and filtering;
-- threshold detection;
-- bit-error-rate analysis;
-- receiver-bandwidth limitation and intersymbol interference.
+Underwater optical communication cannot be understood by examining the water channel, receiver, and signal processing independently.
 
-The project is organised as a sequence of verified studies. Physical
-channel modelling is completed before receiver and signal-processing
-effects are introduced.
+Absorption and scattering determine how much optical power survives propagation. Beam expansion determines how much of that light enters the receiver. Detector and electronic noise affect whether transmitted symbols can be distinguished, while limited receiver bandwidth can distort one pulse into the next.
+
+OceanSenseAI develops these mechanisms progressively through traceable, physics-based studies. The aim is not only to generate numerical results, but to understand which physical assumptions produce those results, how they can be verified, and how reliably they should be interpreted.
+
+## Current Research
+
+### Study 01 — Underwater Optical-Channel Modelling
+
+**Research question**
+
+How do wavelength-dependent absorption and molecular scattering determine direct-path optical transmission through water?
+
+**Study focus**
+
+- published pure-water optical-property data;
+- wavelength-dependent molecular scattering;
+- total beam attenuation;
+- Beer–Lambert propagation;
+- uncertainty propagation;
+- sensitivity to dataset selection;
+- benchmarking against selected published measurements.
+
+**Main finding**
+
+The study shows that predicted underwater optical transmission depends strongly on the optical-property dataset used. Comparison with independent data demonstrates that an apparently favourable wavelength region is not universal, but depends on the underlying parameter source and modelling assumptions.
+
+[Read Study 01](docs/STUDY_01.md)
 
 ---
 
-## Research Objective
+### Study 02 — Link and Signal-Recovery Modelling
 
-The overall objective is to determine how underwater optical-channel,
-transmitter, receiver, and signal-processing parameters influence
-communication performance.
+**Research question**
 
-The implemented modelling chain is:
+How do propagation loss, geometric collection, receiver noise, digital detection, and receiver bandwidth jointly influence underwater communication performance?
+
+**Study focus**
+
+- beam divergence and receiver-aperture collection;
+- received optical power and detector responsivity;
+- shot noise and thermal noise;
+- on–off keying and threshold detection;
+- theoretical and Monte Carlo bit-error-rate analysis;
+- sampled waveforms and integrate-and-dump detection;
+- receiver-bandwidth limitation;
+- intersymbol interference and eye closure.
+
+**Main finding**
+
+The study establishes a traceable connection between optical propagation and recovered digital bits. Analytical and numerical bit-error-rate results agree under the baseline assumptions, while bandwidth limitation demonstrates how pulse memory and intersymbol interference can degrade detection even when the optical link itself remains unchanged.
+
+[Read Study 02](docs/STUDY_02.md)
+
+## Current Progress
+
+| Research component | Status |
+|---|---|
+| Optical-property data and provenance | Implemented and documented |
+| Pure-water absorption and scattering model | Implemented and verified |
+| Selected published-data benchmarking | Completed for the baseline |
+| Optical link-budget model | Implemented and verified |
+| Receiver-noise model | Implemented and verified |
+| OOK theoretical BER | Implemented and verified |
+| Monte Carlo BER simulation | Implemented and verified |
+| Sampled waveform detection | Implemented and verified |
+| Receiver bandwidth and ISI study | Completed for the baseline |
+| Automated testing | Active |
+| End-to-end experimental validation | Future work |
+
+## Scientific Principles
+
+- **Physics before implementation** — each model begins with a defined physical mechanism and mathematical formulation.
+- **Traceable parameters** — published values, engineering assumptions, units, and environmental conditions are documented.
+- **Verification before interpretation** — implementations are checked using analytical results, limiting cases, unit tests, and selected independent data.
+- **Explicit assumptions** — simplifications are stated rather than hidden.
+- **Reproducibility** — controlled parameters, automated tests, and fixed random seeds reproduce the reported simulations.
+
+## Research Workflow
 
 ```text
-Published optical-property data
+Scientific question
         ↓
-Absorption and molecular scattering
+Physical model
         ↓
-Water attenuation coefficient
+Parameter selection and provenance
         ↓
-Beam expansion and geometric collection
+Mathematical formulation
         ↓
-Received optical power
+Numerical implementation
         ↓
-Photodetector current
+Verification and benchmarking
         ↓
-Shot noise and thermal noise
+Simulation
         ↓
-OOK waveform generation
+Scientific interpretation
         ↓
-Receiver filtering and decision sampling
-        ↓
-Recovered bits and bit-error rate
+Limitations and next questions
+```
+
+The software is treated as a research instrument. The scientific value lies in the formulation, verification, and interpretation of the models.
+
+## Current Findings
+
+- Optical-property dataset selection can substantially influence predicted attenuation behaviour.
+- Water attenuation and geometric collection loss affect received power through different physical mechanisms and must be modelled separately.
+- Monte Carlo detection results reproduce the corresponding analytical behaviour under the baseline noise assumptions.
+- Oversampling improves waveform representation without automatically improving the underlying decision SNR.
+- Limited receiver bandwidth introduces pulse memory, reduces eye opening, and increases bit errors through intersymbol interference.
+
+Detailed numerical results, figures, equations, uncertainty analyses, and verification cases are provided in the individual study documents.
+
+## Scope and Limitations
+
+OceanSenseAI is currently a controlled simulation framework rather than a complete model of a deployed underwater communication system.
+
+The present studies use homogeneous and stationary water properties, direct-path attenuation, ideal alignment, simplified beam geometry, fixed system parameters, Gaussian receiver-noise models, uncoded binary signalling, and simplified receiver electronics.
+
+Time-varying water conditions, platform motion, pointing instability, detailed multiple-scattering delays, complete detector and amplifier circuitry, synchronization errors, channel coding, and end-to-end experimental validation remain outside the current scope.
+
+Reported link and communication results therefore describe behaviour under explicit baseline assumptions. They should not be interpreted as guaranteed operating performance for physical hardware.
+
+## Future Development
+
+Future studies may progressively increase the physical realism of the framework through time-varying channel models, pointing and platform effects, more detailed receiver modelling, advanced detection methods, and comparison with experimental measurements.
+
+New extensions will be introduced only when the existing physical assumptions and numerical implementations have been sufficiently verified.
+
+## Explore the Repository
+
+- [`docs/STUDY_01.md`](docs/STUDY_01.md) — optical-channel formulation, parameter sources, verification, uncertainty, and interpretation.
+- [`docs/STUDY_02.md`](docs/STUDY_02.md) — link budget, receiver noise, OOK detection, Monte Carlo analysis, waveforms, and ISI.
+- [`src/`](src/) — physical and signal-processing models.
+- [`studies/`](studies/) — reproducible study scripts.
+- [`tests/`](tests/) — automated numerical verification.
+- [`data/`](data/) — source parameters and generated results.
+- [`figures/`](figures/) — generated scientific figures.
+
+## Reproducing the Studies
+
+Install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the automated tests:
+
+```bash
+python -m unittest discover -s tests
+```
+
+Individual study scripts are located in:
+
+```text
+studies/study_01/
+studies/study_02/
+```
