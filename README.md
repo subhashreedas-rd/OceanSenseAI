@@ -142,7 +142,7 @@ New extensions will be introduced only when the existing physical assumptions an
 - [`src/`](src/) — physical and signal-processing models.
 - [`studies/`](studies/) — reproducible study scripts.
 - [`tests/`](tests/) — automated numerical verification.
-- [`data/`](data/) — source parameters and generated results.
+- [`database/`](database/) — source parameters and generated results.
 - [`figures/`](figures/) — generated scientific figures.
 
 ## Reproducing the Studies
