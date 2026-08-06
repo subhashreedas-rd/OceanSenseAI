@@ -61,6 +61,29 @@ The study establishes a traceable connection between optical propagation and rec
 
 [Read Study 02](docs/STUDY_02.md)
 
+---
+
+### Study 03A — Photon-Budget Modelling
+
+**Research question**
+
+How do received optical power, wavelength, bit duration, and detector efficiency determine the mean number of photons available during each transmitted bit?
+
+**Study focus**
+
+- photon energy as a function of wavelength;
+- optical energy received during one bit;
+- mean photons reaching the detector;
+- detector efficiency inferred from responsivity;
+- mean detected photons per bit;
+- photon-budget variation with propagation distance.
+
+**Main finding**
+
+The study connects the existing continuous-power link model to a photon-level energy description. Under the present transmitter and bit-rate assumptions, the simulated link remains in a many-photon regime throughout the investigated distance range. A separate statistical counting model is therefore required before individual detection events can be analysed.
+
+[Read Study 03A](docs/STUDY_03.md)
+
 ## Current Progress
 
 | Research component | Status |
@@ -69,6 +92,7 @@ The study establishes a traceable connection between optical propagation and rec
 | Pure-water absorption and scattering model | Implemented and verified |
 | Selected published-data benchmarking | Completed for the baseline |
 | Optical link-budget model | Implemented and verified |
+| Photon-budget model | Implemented and verified |
 | Receiver-noise model | Implemented and verified |
 | OOK theoretical BER | Implemented and verified |
 | Monte Carlo BER simulation | Implemented and verified |
@@ -116,6 +140,7 @@ The software is treated as a research instrument. The scientific value lies in t
 - Monte Carlo detection results reproduce the corresponding analytical behaviour under the baseline noise assumptions.
 - Oversampling improves waveform representation without automatically improving the underlying decision SNR.
 - Limited receiver bandwidth introduces pulse memory, reduces eye opening, and increases bit errors through intersymbol interference.
+- The current transmitter and bit-rate assumptions produce a many-photon link, providing a foundation for future discrete photon-counting studies.
 
 Detailed numerical results, figures, equations, uncertainty analyses, and verification cases are provided in the individual study documents.
 
@@ -123,15 +148,15 @@ Detailed numerical results, figures, equations, uncertainty analyses, and verifi
 
 OceanSenseAI is currently a controlled simulation framework rather than a complete model of a deployed underwater communication system.
 
-The present studies use homogeneous and stationary water properties, direct-path attenuation, ideal alignment, simplified beam geometry, fixed system parameters, Gaussian receiver-noise models, uncoded binary signalling, and simplified receiver electronics.
+The present studies use homogeneous and stationary water properties, direct-path attenuation, ideal alignment, simplified beam geometry, fixed system parameters, Gaussian receiver-noise models, uncoded binary signalling, simplified receiver electronics, and mean-value photon-budget calculations.
 
-Time-varying water conditions, platform motion, pointing instability, detailed multiple-scattering delays, complete detector and amplifier circuitry, synchronization errors, channel coding, and end-to-end experimental validation remain outside the current scope.
+Time-varying water conditions, platform motion, pointing instability, detailed multiple-scattering delays, complete detector and amplifier circuitry, synchronization errors, channel coding, discrete photon-count statistics, and end-to-end experimental validation remain outside the current scope.
 
-Reported link and communication results therefore describe behaviour under explicit baseline assumptions. They should not be interpreted as guaranteed operating performance for physical hardware.
+Reported link, communication, and photon-budget results therefore describe behaviour under explicit baseline assumptions. They should not be interpreted as guaranteed operating performance for physical hardware.
 
 ## Future Development
 
-Future studies may progressively increase the physical realism of the framework through time-varying channel models, pointing and platform effects, more detailed receiver modelling, advanced detection methods, and comparison with experimental measurements.
+Future studies may progressively increase the physical realism of the framework through discrete photon-counting models, time-varying channel models, pointing and platform effects, more detailed receiver modelling, advanced detection methods, and comparison with experimental measurements.
 
 New extensions will be introduced only when the existing physical assumptions and numerical implementations have been sufficiently verified.
 
@@ -139,6 +164,7 @@ New extensions will be introduced only when the existing physical assumptions an
 
 - [`docs/STUDY_01.md`](docs/STUDY_01.md) — optical-channel formulation, parameter sources, verification, uncertainty, and interpretation.
 - [`docs/STUDY_02.md`](docs/STUDY_02.md) — link budget, receiver noise, OOK detection, Monte Carlo analysis, waveforms, and ISI.
+- [`docs/STUDY_03.md`](docs/STUDY_03.md) — photon energy, photons per bit, responsivity-derived efficiency, verification, and interpretation.
 - [`src/`](src/) — physical and signal-processing models.
 - [`studies/`](studies/) — reproducible study scripts.
 - [`tests/`](tests/) — automated numerical verification.
@@ -164,4 +190,5 @@ Individual study scripts are located in:
 ```text
 studies/study_01/
 studies/study_02/
+studies/study_03/
 ```
